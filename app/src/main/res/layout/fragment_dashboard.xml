@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.dashboard.DashboardFragment">
+
+
+        <TextView
+            android:id="@+id/text_dashboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="337dp"
+            android:text="DashBoard"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="2sp"
+            app:layout_constraintBottom_toTopOf="@+id/Sciencestext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sportstext"
+            app:layout_editor_absoluteY="500dp" />
+
+        <TextView
+            android:id="@+id/politicsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="8dp"
+            android:text="Politics"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/sportstext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/politicsText">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Politicsarticle1"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/Politicsarticle2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/PoliticsarticleImageView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/PoliticsarticleTitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Politicsarticle2"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/Politicsarticle1">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/PoliticsarticleImageView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/PoliticsarticleTitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Politicsarticle3"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/Politicsarticle2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/PoliticsarticleImageView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/PoliticsarticleTitle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Politicsarticle4"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/Politicsarticle3">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/PoliticsarticleImageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/PoliticsarticleTitle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Politicsarticle5"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/Politicsarticle4">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/PoliticsarticleImageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/PoliticsarticleTitle5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Sciencestext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_dashboard">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SportsarticleB1"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/SportsarticleB2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SportsarticleImageViewB1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SportsarticleTitleB1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SportsarticleB2"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB1">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SportsarticleImageViewB2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SportsarticleTitleB2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SportsarticleB3"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SportsarticleImageViewB3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SportsarticleTitleB3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SportsarticleB4"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB3">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SportsarticleImageViewB4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SportsarticleTitleB4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SportsarticleB5"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB4">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SportsarticleImageViewB5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SportsarticleTitleB5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/sportstext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="210dp"
+            android:text="Sports"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
+            app:layout_constraintStart_toStartOf="@+id/text_dashboard"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Sciencestext">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SciencearticleC1"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/SciencearticleC2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SciencearticleImageViewC1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SciencearticleTitleC1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SciencearticleC2"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SciencearticleC1">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SciencearticleImageViewC2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SciencearticleTitleC2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SciencearticleC3"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SciencearticleC2">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SciencearticleImageViewC3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SciencearticleTitleC3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SciencearticleC4"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SciencearticleC3">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SciencearticleImageViewC4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SciencearticleTitleC4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/SciencearticleC5"
+                    android:layout_width="240dp"
+                    android:layout_height="280dp"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintLeft_toRightOf="@id/SciencearticleC4">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/SciencearticleImageViewC5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/scramble_words"
+                        android:tint="#86000000"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                    <TextView
+                        android:id="@+id/SciencearticleTitleC5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="This is card View"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/Sciencestext"
+            android:layout_width="156dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginBottom="30dp"
+            android:elevation="210dp"
+            android:text="Science"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
