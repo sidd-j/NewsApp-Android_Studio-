@@ -237,17 +237,17 @@
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/SportsarticleB1"
+                    android:id="@+id/TecharticleB1"
                     android:layout_width="240dp"
                     android:layout_height="280dp"
                     android:layout_margin="30dp"
                     android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="24dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/SportsarticleB2">
+                    app:layout_constraintRight_toLeftOf="@id/TecharticleB2">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/SportsarticleImageViewB1"
+                        android:id="@+id/TecharticleImageViewB1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -257,7 +257,7 @@
                         app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                     <TextView
-                        android:id="@+id/SportsarticleTitleB1"
+                        android:id="@+id/TecharticleTitleB1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -269,16 +269,16 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/SportsarticleB2"
+                    android:id="@+id/TecharticleB2"
                     android:layout_width="240dp"
                     android:layout_height="280dp"
                     android:layout_margin="30dp"
                     android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="24dp"
-                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB1">
+                    app:layout_constraintLeft_toRightOf="@id/TecharticleB1">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/SportsarticleImageViewB2"
+                        android:id="@+id/TecharticleImageViewB2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -288,7 +288,7 @@
                         app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                     <TextView
-                        android:id="@+id/SportsarticleTitleB2"
+                        android:id="@+id/TecharticleTitleB2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -300,16 +300,16 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/SportsarticleB3"
+                    android:id="@+id/TecharticleB3"
                     android:layout_width="240dp"
                     android:layout_height="280dp"
                     android:layout_margin="30dp"
                     android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="24dp"
-                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB2">
+                    app:layout_constraintLeft_toRightOf="@id/TecharticleB2">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/SportsarticleImageViewB3"
+                        android:id="@+id/TecharticleImageViewB3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -319,7 +319,7 @@
                         app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                     <TextView
-                        android:id="@+id/SportsarticleTitleB3"
+                        android:id="@+id/TecharticleTitleB3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -332,16 +332,16 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/SportsarticleB4"
+                    android:id="@+id/TecharticleB4"
                     android:layout_width="240dp"
                     android:layout_height="280dp"
                     android:layout_margin="30dp"
                     android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="24dp"
-                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB3">
+                    app:layout_constraintLeft_toRightOf="@id/TecharticleB3">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/SportsarticleImageViewB4"
+                        android:id="@+id/TecharticleImageViewB4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -351,7 +351,7 @@
                         app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                     <TextView
-                        android:id="@+id/SportsarticleTitleB4"
+                        android:id="@+id/TecharticleTitleB4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -363,16 +363,16 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/SportsarticleB5"
+                    android:id="@+id/TecharticleB5"
                     android:layout_width="240dp"
                     android:layout_height="280dp"
                     android:layout_margin="30dp"
                     android:backgroundTint="#FFFFFF"
                     app:cardCornerRadius="24dp"
-                    app:layout_constraintLeft_toRightOf="@id/SportsarticleB4">
+                    app:layout_constraintLeft_toRightOf="@id/TecharticleB4">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/SportsarticleImageViewB5"
+                        android:id="@+id/TecharticleImageViewB5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -382,7 +382,7 @@
                         app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                     <TextView
-                        android:id="@+id/SportsarticleTitleB5"
+                        android:id="@+id/TecharticleTitleB5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -405,7 +405,7 @@
             android:layout_marginStart="33dp"
             android:layout_marginBottom="12dp"
             android:elevation="210dp"
-            android:text="Sports"
+            android:text="World"
             android:textColor="@color/white"
             android:textSize="40dp"
             android:textStyle="bold"

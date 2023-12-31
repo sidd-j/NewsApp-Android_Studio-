@@ -59,16 +59,16 @@ class DashboardFragment : Fragment() {
                 val urlScience = URL("https://api.nytimes.com/svc/topstories/v2/science.json?api-key=$apiKey")
                 val scienceResponse = urlScience.readText()
 
-                val urlSports = URL("https://api.nytimes.com/svc/topstories/v2/sports.json?api-key=$apiKey")
-                val sportsResponse = urlSports.readText()
+                val urlTechnology = URL("https://api.nytimes.com/svc/topstories/v2/world.json?api-key=$apiKey")
+                val techResponse = urlTechnology.readText()
 
                 val urlPolitics = URL("https://api.nytimes.com/svc/topstories/v2/politics.json?api-key=$apiKey")
                 val politicsResponse = urlPolitics.readText()
 
                 // Introduce a delay of 12 seconds between API calls to avoid rate limit
 
-
-                listOf(scienceResponse, sportsResponse, politicsResponse)
+                delay(12)
+                listOf(techResponse,scienceResponse, politicsResponse)
             } catch (e: IOException) {
                 e.printStackTrace()
                 emptyList() // Return an empty list if there's an error
@@ -79,18 +79,21 @@ class DashboardFragment : Fragment() {
 
 
     private fun handleNewsApiResponse(responses: List<String>) {
-        val sportsArticles = mutableListOf<NewsArticle>()
+        val techArticles = mutableListOf<NewsArticle>()
         val scienceArticles = mutableListOf<NewsArticle>()
         val politicsArticles = mutableListOf<NewsArticle>()
+
 
         for (response in responses) {
             val jsonObject = JSONObject(response)
             val resultsArray = jsonObject.optJSONArray("results")
+            println("REsult array"+resultsArray)
 
             if (resultsArray != null) {
                 for (i in 0 until resultsArray.length()) {
                     val articleObject = resultsArray.getJSONObject(i)
                     val mediaArray = articleObject.optJSONArray("multimedia")
+
 
                     if (mediaArray != null && mediaArray.length() > 0) {
                         val media = mediaArray.getJSONObject(0)
@@ -99,18 +102,17 @@ class DashboardFragment : Fragment() {
 
                         if (title.isNotBlank() && imageUrl.isNotBlank()) {
                             val article = NewsArticle(title, imageUrl)
-
                             when {
                                 response.contains("science") -> {
                                     if (scienceArticles.size < 5) {
                                         scienceArticles.add(article)
-
                                     }
                                 }
-                                response.contains("sports") -> {
-                                    if (sportsArticles.size < 5) {
-                                        sportsArticles.add(article)
+                                response.contains("World") -> {
+                                    if (techArticles.size < 5) {
+                                        techArticles.add(article)
                                     }
+
                                 }
                                 response.contains("politics") -> {
                                     if (politicsArticles.size < 5) {
@@ -126,15 +128,14 @@ class DashboardFragment : Fragment() {
         // Update UI with articles for each category
         updateUIforCategory(scienceArticles, "science")
         updateUIforCategory(politicsArticles, "politics")
-        updateUIforCategory(sportsArticles, "sports")
-
+        updateUIforCategory(techArticles, "world")
     }
+
 
     private fun updateUIforCategory(articles: List<NewsArticle>, category: String) {
         when (category) {
             "science" -> {
                 articles.forEachIndexed { index, article ->
-                    println("Science section")
                     if (index < 5) {
                         // Update UI for science category
                         val cardView = binding.root.findViewById<CardView>(
@@ -200,26 +201,26 @@ class DashboardFragment : Fragment() {
                     }
                 }
             }
-            "sports" -> {
+            "world" -> {
                 articles.forEachIndexed { index, article ->
-                    println("sports section")
+                    println("Technology section")
 
                     if (index < 5) {
                         // Update UI for sports category
                         val cardView = binding.root.findViewById<CardView>(
                             resources.getIdentifier(
-                                "SportsarticleB${index + 1}", "id", requireContext().packageName
+                                "TecharticleB${index + 1}", "id", requireContext().packageName
                             )
                         )
                         val titleTextView = cardView.findViewById<TextView>(
                             resources.getIdentifier(
 
-                                "SportsarticleTitleB${index + 1}", "id", requireContext().packageName
+                                "TecharticleTitleB${index + 1}", "id", requireContext().packageName
                             )
                         )
                         val imageView = cardView.findViewById<ImageView>(
                             resources.getIdentifier(
-                                "SportsarticleImageViewB${index + 1}", "id", requireContext().packageName
+                                "TecharticleImageViewB${index + 1}", "id", requireContext().packageName
                             )
                         )
 
@@ -240,26 +241,7 @@ class DashboardFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
-    @SuppressLint("DiscouragedPrivateApi")
-    fun useHiddenMethod() {
-        try {
-            val closeGuardClass = Class.forName("dalvik.system.CloseGuard")
-            val getMethod = closeGuardClass.getMethod("get")
-            val closeGuardInstance = getMethod.invoke(null)
 
-            val openMethod = closeGuardClass.getMethod("open", String::class.java)
-            openMethod.invoke(closeGuardInstance, "Some message")
-
-            val warnIfOpenMethod = closeGuardClass.getMethod("warnIfOpen")
-            warnIfOpenMethod.invoke(closeGuardInstance)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 }
