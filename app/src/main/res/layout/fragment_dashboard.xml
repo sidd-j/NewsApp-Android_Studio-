@@ -86,7 +86,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -117,7 +117,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -148,7 +148,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -180,7 +180,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -211,7 +211,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -294,7 +294,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -325,7 +325,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -357,7 +357,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -388,7 +388,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -454,7 +454,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -485,7 +485,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -516,7 +516,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -548,7 +548,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -579,7 +579,7 @@
                         android:layout_margin="20dp"
                         android:text="This is card View"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="@dimen/font_Title"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>

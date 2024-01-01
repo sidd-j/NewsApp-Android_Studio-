@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.newsapp.ui.HomeFD.HomeFragment"
+        android:label="HomeFragment">
+        <!-- Define actions or other attributes for the HomeFragment -->
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.newsapp.ui.Setting.SettingFragment"
+        android:label="SettingsFragment">
+        <!-- Define actions or other attributes for the SettingsFragment -->
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.newsapp.ui.About.AboutFragment"
+        android:label="AboutFragment">
+        <!-- Define actions or other attributes for the AboutFragment -->
+    </fragment>
+
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.example.newsapp.ui.Share.ShareFragment"
+        android:label="ShareFragment">
+        <!-- Define actions or other attributes for the ShareFragment -->
+    </fragment>
+</navigation>
