@@ -91,6 +91,7 @@ open class DashboardFragment : Fragment() {
             val result1 = resultsArray.getJSONObject(3)
             println("REsult array"+result1)
 
+
             if (resultsArray != null) {
                 for (i in 0 until resultsArray.length()) {
                     val articleObject = resultsArray.getJSONObject(i)
