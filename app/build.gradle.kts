@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -51,7 +55,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     testImplementation("junit:junit:4.13.2")
     implementation("com.squareup.picasso:picasso:2.71828")
-
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

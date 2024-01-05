@@ -1,4 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    >
     <!-- Base application theme. -->
     <style name="Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Remove the action bar and use a Toolbar -->

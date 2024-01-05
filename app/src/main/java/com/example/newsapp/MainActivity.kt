@@ -1,7 +1,11 @@
 package com.example.newsapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -27,18 +31,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view2)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
 
         val bottomNavView = findViewById<BottomNavigationView>(R.id.nav_view1)
         bottomNavView.setupWithNavController(navController)
@@ -76,4 +76,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    fun PoliticsArticle2News(view: View) {
+        openactivity2()
+    }
+    fun openactivity2(){
+        val intent = Intent(this, FullArticle::class.java)
+        startActivity(intent)
+    }
+
 }

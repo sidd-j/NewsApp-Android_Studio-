@@ -14,5 +14,10 @@
         android:textSize="30sp"
         android:layout_centerInParent="true"
         android:textColor="@color/lavender"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="30dp"
+        android:textSize="30dp"/>
 
 </RelativeLayout>

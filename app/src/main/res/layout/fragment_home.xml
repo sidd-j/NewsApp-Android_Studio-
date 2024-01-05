@@ -1,201 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="100dp"
-    >
+    android:layout_height="match_parent">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#6F000000"
-        android:elevation="20dp"
-        android:text="International News"
-        android:textAlignment="viewStart"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:contentDescription="A beautiful image of planet Earth as seen from space"
-        android:scaleType="fitCenter"
-        android:src="@drawable/earth_image"
-        android:tint="#6F000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseAppTint" />
-
-    <androidx.cardview.widget.CardView
-        app:barrierMargin="10dp"
-        android:backgroundTint="@color/black"
-        android:layout_margin="10dp"
-        android:id="@+id/article1"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:elevation="20dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        >
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_margin="20dp"
-            app:shapeAppearanceOverlay="@style/RoundedSquare"
-            android:id="@+id/articleImageView1"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:visibility="visible"
-            android:src="@drawable/place_holder_background_background" />
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/titlesTextView1"
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#6F000000"
+            android:elevation="20dp"
+            android:text="International News"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:contentDescription="A beautiful image of planet Earth as seen from space"
+            android:scaleType="fitCenter"
+            android:src="@drawable/earth_image"
+            android:tint="#6F000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Title"
-            android:elevation="30dp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginTop="250dp"
-            />
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/article2"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:elevation="20dp"
-        app:layout_constraintTop_toBottomOf="@id/article1"
-        >
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_margin="20dp"
-            app:shapeAppearanceOverlay="@style/RoundedSquare"
-            android:id="@+id/articleImageView2"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/place_holder_background_background" />
-
-        <TextView
-            android:id="@+id/titlesTextView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Title"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="250dp"
-            />
-
-
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/article3"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:elevation="20dp"
-        app:cardBackgroundColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/article2"
-        >
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_margin="20dp"
-            app:shapeAppearanceOverlay="@style/RoundedSquare"
-            android:id="@+id/articleImageView3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/place_holder_background_background" />
-
-        <TextView
-            android:id="@+id/titlesTextView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Title"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginTop="240dp"
-            />
-
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/article4"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:elevation="20dp"
-        app:cardBackgroundColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/article3"
-        >
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_margin="20dp"
-            app:shapeAppearanceOverlay="@style/RoundedSquare"
-            android:id="@+id/articleImageView4"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/place_holder_background_background" />
-
-        <TextView
-            android:id="@+id/titlesTextView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Title"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginTop="240dp"
-            />
-
-
-    </androidx.cardview.widget.CardView>
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

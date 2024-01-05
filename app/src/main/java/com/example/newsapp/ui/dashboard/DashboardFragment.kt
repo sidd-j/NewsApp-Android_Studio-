@@ -22,7 +22,9 @@ import android.util.Log
 import kotlinx.coroutines.delay
 
 
-class DashboardFragment : Fragment() {
+open class DashboardFragment : Fragment() {
+    val newsArticlesMap = mutableMapOf<String, List<NewsArticle>>() // Map to store articles by category
+
 
     private val articlesList = mutableListOf<NewsArticle>()
     private var _binding: FragmentDashboardBinding? = null
@@ -53,7 +55,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private suspend fun fetchNewsArticles(apiKey: String): List<String> {
+     suspend fun fetchNewsArticles(apiKey: String): List<String> {
         return withContext(Dispatchers.IO) {
             try {
                 val urlScience = URL("https://api.nytimes.com/svc/topstories/v2/science.json?api-key=$apiKey")
@@ -62,12 +64,11 @@ class DashboardFragment : Fragment() {
                 val urlTechnology = URL("https://api.nytimes.com/svc/topstories/v2/world.json?api-key=$apiKey")
                 val techResponse = urlTechnology.readText()
 
-                val urlPolitics = URL("https://api.nytimes.com/svc/topstories/v2/politics.json?api-key=$apiKey")
+                val urlPolitics = URL("https://api.nytimes.com/svc/topstories/v2/us.json?api-key=$apiKey")
                 val politicsResponse = urlPolitics.readText()
 
                 // Introduce a delay of 12 seconds between API calls to avoid rate limit
 
-                delay(12)
                 listOf(techResponse,scienceResponse, politicsResponse)
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -78,22 +79,24 @@ class DashboardFragment : Fragment() {
 
 
 
-    private fun handleNewsApiResponse(responses: List<String>) {
+    fun handleNewsApiResponse(responses: List<String>) {
         val techArticles = mutableListOf<NewsArticle>()
         val scienceArticles = mutableListOf<NewsArticle>()
         val politicsArticles = mutableListOf<NewsArticle>()
 
-
         for (response in responses) {
+
             val jsonObject = JSONObject(response)
             val resultsArray = jsonObject.optJSONArray("results")
-            println("REsult array"+resultsArray)
+            val result1 = resultsArray.getJSONObject(3)
+            println("REsult array"+result1)
 
             if (resultsArray != null) {
                 for (i in 0 until resultsArray.length()) {
                     val articleObject = resultsArray.getJSONObject(i)
                     val mediaArray = articleObject.optJSONArray("multimedia")
-
+                    val section = jsonObject.getString("section")
+                    println("Section : "+section)
 
                     if (mediaArray != null && mediaArray.length() > 0) {
                         val media = mediaArray.getJSONObject(0)
@@ -108,13 +111,13 @@ class DashboardFragment : Fragment() {
                                         scienceArticles.add(article)
                                     }
                                 }
-                                response.contains("World") -> {
+                                response.contains("world") -> {
                                     if (techArticles.size < 5) {
                                         techArticles.add(article)
                                     }
 
                                 }
-                                response.contains("politics") -> {
+                                response.contains("us") -> {
                                     if (politicsArticles.size < 5) {
                                         politicsArticles.add(article)
                                     }
@@ -129,6 +132,11 @@ class DashboardFragment : Fragment() {
         updateUIforCategory(scienceArticles, "science")
         updateUIforCategory(politicsArticles, "politics")
         updateUIforCategory(techArticles, "world")
+
+
+        newsArticlesMap["science"] = scienceArticles
+        newsArticlesMap["politics"] = politicsArticles
+        newsArticlesMap["world"] = techArticles
     }
 
 
@@ -242,6 +250,18 @@ class DashboardFragment : Fragment() {
 
 
 
+    // Function to get all articles by category
+    fun getAllArticles(): Map<String, List<NewsArticle>> {
+        return newsArticlesMap
+    }
 
+    // Function to get articles for a specific category
+    fun getArticlesForCategory(category: String): List<NewsArticle>? {
+        return newsArticlesMap[category]
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
