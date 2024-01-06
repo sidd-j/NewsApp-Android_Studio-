@@ -57,6 +57,7 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

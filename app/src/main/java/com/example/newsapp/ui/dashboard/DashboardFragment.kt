@@ -19,16 +19,15 @@ import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
 import android.util.Log
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.delay
 
 
-open class DashboardFragment : Fragment() {
-    val newsArticlesMap = mutableMapOf<String, List<NewsArticle>>() // Map to store articles by category
-
-
-    private val articlesList = mutableListOf<NewsArticle>()
+class DashboardFragment : Fragment() {
+    private val newsArticlesMap = mutableMapOf<String, List<NewsArticle>>() // Map to store articles by category
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +35,27 @@ open class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        swipeRefreshLayout = binding.swipeRefreshLayout
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Fetch news articles using coroutine
+        // Set up swipe-to-refresh listener
+        swipeRefreshLayout.setOnRefreshListener {
+            // Refresh action
+            refreshData()
+        }
+
+        // Fetch news articles on initial load
+        refreshData()
+    }
+
+    private fun refreshData() {
+        // Perform the refresh action here
+        // Fetch new data or update existing data
+        // You can call fetchNewsArticles() again or any other data refresh logic
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val apiKey = "rZcS3xlAHpqx9P85OIrT9vvh08YLFQGb"
@@ -51,6 +64,9 @@ open class DashboardFragment : Fragment() {
             } catch (e: Exception) {
                 // Handle errors
                 e.printStackTrace()
+            } finally {
+                // Hide the refreshing indicator
+                swipeRefreshLayout.isRefreshing = false
             }
         }
     }
@@ -85,43 +101,33 @@ open class DashboardFragment : Fragment() {
         val politicsArticles = mutableListOf<NewsArticle>()
 
         for (response in responses) {
-
             val jsonObject = JSONObject(response)
             val resultsArray = jsonObject.optJSONArray("results")
-            val result1 = resultsArray.getJSONObject(3)
-            println("REsult array"+result1)
-
 
             if (resultsArray != null) {
                 for (i in 0 until resultsArray.length()) {
                     val articleObject = resultsArray.getJSONObject(i)
                     val mediaArray = articleObject.optJSONArray("multimedia")
-                    val section = jsonObject.getString("section")
-                    println("Section : "+section)
+                    val section = articleObject.optString("section")
+                    val title = articleObject.optString("title")
+                    val imageUrl = mediaArray?.optJSONObject(0)?.optString("url")
 
-                    if (mediaArray != null && mediaArray.length() > 0) {
-                        val media = mediaArray.getJSONObject(0)
-                        val imageUrl = media.optString("url")
-                        val title = articleObject.optString("title")
-
-                        if (title.isNotBlank() && imageUrl.isNotBlank()) {
-                            val article = NewsArticle(title, imageUrl)
-                            when {
-                                response.contains("science") -> {
-                                    if (scienceArticles.size < 5) {
-                                        scienceArticles.add(article)
-                                    }
+                    if (title.isNotBlank() && imageUrl?.isNotBlank() == true) {
+                        val article = NewsArticle(title, imageUrl)
+                        when {
+                            section.contains("Science", ignoreCase = true) -> {
+                                if (scienceArticles.size < 5) {
+                                    scienceArticles.add(article)
                                 }
-                                response.contains("world") -> {
-                                    if (techArticles.size < 5) {
-                                        techArticles.add(article)
-                                    }
-
+                            }
+                            section.contains("World", ignoreCase = true) -> {
+                                if (techArticles.size < 5) {
+                                    techArticles.add(article)
                                 }
-                                response.contains("us") -> {
-                                    if (politicsArticles.size < 5) {
-                                        politicsArticles.add(article)
-                                    }
+                            }
+                            section.contains("US", ignoreCase = true) -> {
+                                if (politicsArticles.size < 5) {
+                                    politicsArticles.add(article)
                                 }
                             }
                         }
@@ -129,16 +135,17 @@ open class DashboardFragment : Fragment() {
                 }
             }
         }
+
         // Update UI with articles for each category
         updateUIforCategory(scienceArticles, "science")
-        updateUIforCategory(politicsArticles, "politics")
+        updateUIforCategory(politicsArticles, "us")
         updateUIforCategory(techArticles, "world")
 
-
         newsArticlesMap["science"] = scienceArticles
-        newsArticlesMap["politics"] = politicsArticles
+        newsArticlesMap["us"] = politicsArticles
         newsArticlesMap["world"] = techArticles
     }
+
 
 
     private fun updateUIforCategory(articles: List<NewsArticle>, category: String) {
@@ -177,7 +184,7 @@ open class DashboardFragment : Fragment() {
                 }
             }
 
-            "politics" -> {
+            "us" -> {
                 articles.forEachIndexed { index, article ->
                     if (index < 5) {
                         // Update UI for politics category
@@ -212,7 +219,7 @@ open class DashboardFragment : Fragment() {
             }
             "world" -> {
                 articles.forEachIndexed { index, article ->
-                    println("Technology section")
+                    println("World News")
 
                     if (index < 5) {
                         // Update UI for sports category
