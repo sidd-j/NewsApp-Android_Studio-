@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.newsapp.ui.HomeFD.HomeFragment"
-        android:label="HomeFragment">
-        <!-- Define actions or other attributes for the HomeFragment -->
-    </fragment>
+        android:id="@+id/nav_home"
+        android:name="com.example.newsapp.ui.dashboard.DashboardFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.newsapp.ui.Setting.SettingFragment"
-        android:label="SettingsFragment">
-        <!-- Define actions or other attributes for the SettingsFragment -->
-    </fragment>
+        android:id="@+id/nav_news_section"
+        android:name="com.example.newsapp.ui.notifications.NotificationsFragment"
+        android:label="News Section"
+        tools:layout="@layout/fragment_categories" />
 
     <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.example.newsapp.ui.About.AboutFragment"
-        android:label="AboutFragment">
-        <!-- Define actions or other attributes for the AboutFragment -->
-    </fragment>
-
-    <fragment
-        android:id="@+id/shareFragment"
+        android:id="@+id/top_international_news"
         android:name="com.example.newsapp.ui.Share.ShareFragment"
-        android:label="ShareFragment">
-        <!-- Define actions or other attributes for the ShareFragment -->
-    </fragment>
+        android:label="Top International News"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.newsapp.ui.About.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
+
 </navigation>

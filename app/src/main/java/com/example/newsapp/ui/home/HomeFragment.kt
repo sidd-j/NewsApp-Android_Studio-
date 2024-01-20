@@ -14,7 +14,9 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
-
+import java.time.Duration
+import java.time.Instant
+import java.time.OffsetDateTime
 
 
 // HomeFragment.kt
@@ -79,8 +81,12 @@ class HomeFragment : Fragment() {
                 val abstract = articleObject.optString("abstract", "")
                 val url = articleObject.optString("url", "")
                 val multimediaArray = articleObject.optJSONArray("multimedia")
-
                 val multimediaList = mutableListOf<Multimedia>()
+
+                val datepublish = articleObject.optString(("published_date"))
+                val dateTime = OffsetDateTime.parse(datepublish)
+                val hoursAgo = Duration.between(dateTime.toInstant(), Instant.now()).toHours()
+
                 multimediaArray?.let {
                     for (j in 0 until it.length()) {
                         val multimediaObject = it.getJSONObject(j)
@@ -95,7 +101,7 @@ class HomeFragment : Fragment() {
                 if (title.isNotBlank() && abstract.isNotBlank() && url.isNotBlank()) {
                     // Here, imageUrl should be the first multimedia url if available
                     val imageUrl = multimediaList.firstOrNull()?.url ?: ""
-                    articlesList.add(NewsArticle(title, imageUrl, abstract, url, multimediaList))
+                    articlesList.add(NewsArticle(title, imageUrl, abstract, url, multimediaList,hoursAgo.toString()))
                 }
             }
 

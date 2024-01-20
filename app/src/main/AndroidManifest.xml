@@ -16,7 +16,28 @@
         android:theme="@style/Theme.NewsApp"
         tools:targetApi="31">
         <activity
-            android:name=".FullArticle"
+            android:name=".WorldNews"
+            android:exported="false" />
+        <activity
+            android:name=".ScienceNews"
+            android:exported="false" />
+        <activity
+            android:name=".FashionNews"
+            android:exported="false" />
+        <activity
+            android:name=".AutomobileNews"
+            android:exported="false" />
+        <activity
+            android:name=".SportsNews"
+            android:exported="false" />
+        <activity
+            android:name=".TravelNews"
+            android:exported="false" />
+        <activity
+            android:name=".Politics"
+            android:exported="false" />
+        <activity
+            android:name=".TechnologyNews"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

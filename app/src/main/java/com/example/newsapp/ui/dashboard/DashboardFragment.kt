@@ -1,275 +1,196 @@
 package com.example.newsapp.ui.dashboard
 
-import android.annotation.SuppressLint
+import ImageSliderAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.widget.Button
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.example.newsapp.Politics
+import com.example.newsapp.R
+import com.example.newsapp.ScienceNews
+import com.example.newsapp.WorldNews
 import com.example.newsapp.databinding.FragmentDashboardBinding
-import com.squareup.picasso.Picasso
+import com.example.newsapp.ui.notifications.AdapterHorizontal
+import com.example.newsapp.ui.notifications.NewsArticle
+import com.example.newsapp.ui.notifications.Multimedia
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
-import android.util.Log
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.coroutines.delay
-
+import java.time.*
+import java.util.Timer
+import java.util.TimerTask
 
 class DashboardFragment : Fragment() {
-    private val newsArticlesMap = mutableMapOf<String, List<NewsArticle>>() // Map to store articles by category
-    private var _binding: FragmentDashboardBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private val politicsArticlesList = mutableListOf<NewsArticle>()
+    private val scienceArticlesList = mutableListOf<NewsArticle>()
+    private val sportsArticlesList = mutableListOf<NewsArticle>()
+    private lateinit var binding: FragmentDashboardBinding
+    private lateinit var politicsAdapter: AdapterHorizontal
+    private lateinit var scienceAdapter: AdapterHorizontal
+    private lateinit var sportsAdapter: AdapterHorizontal
+    private lateinit var viewPager: ViewPager2
+    private lateinit var timer: Timer
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        swipeRefreshLayout = binding.swipeRefreshLayout
+    ): View? {
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up swipe-to-refresh listener
-        swipeRefreshLayout.setOnRefreshListener {
-            // Refresh action
-            refreshData()
+        politicsAdapter = AdapterHorizontal(politicsArticlesList)
+        binding.PoliticsRecylerView.adapter = politicsAdapter
+        binding.PoliticsRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        scienceAdapter = AdapterHorizontal(scienceArticlesList)
+        binding.ScienceRecylerView.adapter = scienceAdapter
+        binding.ScienceRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        sportsAdapter = AdapterHorizontal(sportsArticlesList)
+        binding.WorldRecylerView.adapter = sportsAdapter
+        binding.WorldRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+
+        val sciencebttn = view.findViewById<Button>(R.id.sciencebttn)
+
+        sciencebttn.setOnClickListener {
+            val intent = Intent(requireContext(), ScienceNews::class.java)
+            startActivity(intent)
         }
 
-        // Fetch news articles on initial load
-        refreshData()
-    }
+        val polibttn = view.findViewById<Button>(R.id.politicsbttn)
 
-    private fun refreshData() {
-        // Perform the refresh action here
-        // Fetch new data or update existing data
-        // You can call fetchNewsArticles() again or any other data refresh logic
+        polibttn.setOnClickListener {
+            val intent = Intent(requireContext(), Politics::class.java)
+            startActivity(intent)
+        }
+
+        val worldbttn = view.findViewById<Button>(R.id.worldbttn)
+
+        worldbttn.setOnClickListener {
+            val intent = Intent(requireContext(), WorldNews::class.java)
+            startActivity(intent)
+        }
+
+        viewPager = view.findViewById(R.id.viewPager)
+
+        // Replace with your actual image resources
+        val images = listOf(R.drawable.worldmap, R.drawable.sports_categories, R.drawable.politic)
+
+        // Set up your ViewPager2 adapter here
+        val adapter = ImageSliderAdapter(images)
+        viewPager.adapter = adapter
+
+        // Start the timer to auto-scroll the ViewPager2
+        startTimer()
+
         viewLifecycleOwner.lifecycleScope.launch {
             try {
+
                 val apiKey = "rZcS3xlAHpqx9P85OIrT9vvh08YLFQGb"
-                val response = fetchNewsArticles(apiKey)
-                handleNewsApiResponse(response)
+                val politicsResponse = fetchNewsArticles(apiKey, "politics")
+                handleNewsApiResponse(politicsResponse, politicsArticlesList)
+
+                val scienceResponse = fetchNewsArticles(apiKey, "science")
+                handleNewsApiResponse(scienceResponse, scienceArticlesList)
+
+                val sportsResponse = fetchNewsArticles(apiKey, "sports")
+                handleNewsApiResponse(sportsResponse, sportsArticlesList)
+
+                delay(12000)
             } catch (e: Exception) {
-                // Handle errors
                 e.printStackTrace()
-            } finally {
-                // Hide the refreshing indicator
-                swipeRefreshLayout.isRefreshing = false
+                // Handle the exception (e.g., show an error message)
             }
         }
     }
 
-     suspend fun fetchNewsArticles(apiKey: String): List<String> {
+    private suspend fun fetchNewsArticles(apiKey: String, category: String): String {
+        val url = URL("https://api.nytimes.com/svc/topstories/v2/$category.json?api-key=$apiKey")
         return withContext(Dispatchers.IO) {
             try {
-                val urlScience = URL("https://api.nytimes.com/svc/topstories/v2/science.json?api-key=$apiKey")
-                val scienceResponse = urlScience.readText()
-
-                val urlTechnology = URL("https://api.nytimes.com/svc/topstories/v2/world.json?api-key=$apiKey")
-                val techResponse = urlTechnology.readText()
-
-                val urlPolitics = URL("https://api.nytimes.com/svc/topstories/v2/us.json?api-key=$apiKey")
-                val politicsResponse = urlPolitics.readText()
-
-                // Introduce a delay of 12 seconds between API calls to avoid rate limit
-
-                listOf(techResponse,scienceResponse, politicsResponse)
+                url.readText()
             } catch (e: IOException) {
                 e.printStackTrace()
-                emptyList() // Return an empty list if there's an error
+                ""
             }
         }
     }
 
+    private fun handleNewsApiResponse(response: String, articlesList: MutableList<NewsArticle>) {
+        val jsonObject = JSONObject(response)
+        val resultsArray = jsonObject.optJSONArray("results")
 
+        if (resultsArray != null) {
+            for (i in 0 until resultsArray.length()) {
+                val articleObject = resultsArray.getJSONObject(i)
+                val title = articleObject.optString("title", "")
+                val abstract = articleObject.optString("abstract", "")
+                val url = articleObject.optString("url", "")
+                val multimediaArray = articleObject.optJSONArray("multimedia")
+                val datepublish = articleObject.optString(("published_date"))
+                val dateTime = OffsetDateTime.parse(datepublish)
+                val hoursAgo = Duration.between(dateTime.toInstant(), Instant.now()).toHours()
 
-    fun handleNewsApiResponse(responses: List<String>) {
-        val techArticles = mutableListOf<NewsArticle>()
-        val scienceArticles = mutableListOf<NewsArticle>()
-        val politicsArticles = mutableListOf<NewsArticle>()
-
-        for (response in responses) {
-            val jsonObject = JSONObject(response)
-            val resultsArray = jsonObject.optJSONArray("results")
-
-            if (resultsArray != null) {
-                for (i in 0 until resultsArray.length()) {
-                    val articleObject = resultsArray.getJSONObject(i)
-                    val mediaArray = articleObject.optJSONArray("multimedia")
-                    val section = articleObject.optString("section")
-                    val title = articleObject.optString("title")
-                    val imageUrl = mediaArray?.optJSONObject(0)?.optString("url")
-
-                    if (title.isNotBlank() && imageUrl?.isNotBlank() == true) {
-                        val article = NewsArticle(title, imageUrl)
-                        when {
-                            section.contains("Science", ignoreCase = true) -> {
-                                if (scienceArticles.size < 5) {
-                                    scienceArticles.add(article)
-                                }
-                            }
-                            section.contains("World", ignoreCase = true) -> {
-                                if (techArticles.size < 5) {
-                                    techArticles.add(article)
-                                }
-                            }
-                            section.contains("US", ignoreCase = true) -> {
-                                if (politicsArticles.size < 5) {
-                                    politicsArticles.add(article)
-                                }
-                            }
-                        }
+                val multimediaList = mutableListOf<Multimedia>()
+                multimediaArray?.let {
+                    for (j in 0 until it.length()) {
+                        val multimediaObject = it.getJSONObject(j)
+                        val multimediaUrl = multimediaObject.optString("url", "")
+                        val format = multimediaObject.optString("format", "")
+                        val height = multimediaObject.optInt("height", 0)
+                        val width = multimediaObject.optInt("width", 0)
+                        multimediaList.add(Multimedia(multimediaUrl, format, height, width))
                     }
                 }
+
+                if (title.isNotBlank() && abstract.isNotBlank() && url.isNotBlank()) {
+                    // Here, imageUrl should be the first multimedia url if available
+                    val imageUrl = multimediaList.firstOrNull()?.url ?: ""
+                    articlesList.add(NewsArticle(title, imageUrl, abstract, url, multimediaList, hoursAgo.toString()))
+                }
+            }
+
+            // Notify the adapter that the data set has changed
+            politicsAdapter.notifyDataSetChanged()
+            scienceAdapter.notifyDataSetChanged()
+            sportsAdapter.notifyDataSetChanged()
+        }
+    }
+    private fun startTimer() {
+        val handler = Handler(Looper.getMainLooper())
+        val update = Runnable {
+            if (viewPager.currentItem < 3 - 1) {
+                viewPager.currentItem += 1
+            } else {
+                viewPager.currentItem = 0
             }
         }
 
-        // Update UI with articles for each category
-        updateUIforCategory(scienceArticles, "science")
-        updateUIforCategory(politicsArticles, "us")
-        updateUIforCategory(techArticles, "world")
-
-        newsArticlesMap["science"] = scienceArticles
-        newsArticlesMap["us"] = politicsArticles
-        newsArticlesMap["world"] = techArticles
-    }
-
-
-
-    private fun updateUIforCategory(articles: List<NewsArticle>, category: String) {
-        when (category) {
-            "science" -> {
-                articles.forEachIndexed { index, article ->
-                    if (index < 5) {
-                        // Update UI for science category
-                        val cardView = binding.root.findViewById<CardView>(
-                            resources.getIdentifier(
-                                "SciencearticleC${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val titleTextView = cardView.findViewById<TextView>(
-                            resources.getIdentifier(
-                                "SciencearticleTitleC${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val imageView = cardView.findViewById<ImageView>(
-                            resources.getIdentifier(
-                                "SciencearticleImageViewC${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-
-                        titleTextView.text = article.title
-
-                        // Load the image using Picasso
-                        Picasso.get()
-                            .load(article.imageUrl)
-                            .fit()
-                            .centerCrop()
-                            .into(imageView)
-
-                        cardView.visibility = View.VISIBLE
-                    }
-                }
+        timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                handler.post(update)
             }
-
-            "us" -> {
-                articles.forEachIndexed { index, article ->
-                    if (index < 5) {
-                        // Update UI for politics category
-                        val cardView = binding.root.findViewById<CardView>(
-                            resources.getIdentifier(
-                                "Politicsarticle${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val titleTextView = cardView.findViewById<TextView>(
-                            resources.getIdentifier(
-                                "PoliticsarticleTitle${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val imageView = cardView.findViewById<ImageView>(
-                            resources.getIdentifier(
-                                "PoliticsarticleImageView${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-
-                        titleTextView.text = article.title
-
-                        // Load the image using Picasso
-                        Picasso.get()
-                            .load(article.imageUrl)
-                            .fit()
-                            .centerCrop()
-                            .into(imageView)
-
-                        cardView.visibility = View.VISIBLE
-                    }
-                }
-            }
-            "world" -> {
-                articles.forEachIndexed { index, article ->
-                    println("World News")
-
-                    if (index < 5) {
-                        // Update UI for sports category
-                        val cardView = binding.root.findViewById<CardView>(
-                            resources.getIdentifier(
-                                "TecharticleB${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val titleTextView = cardView.findViewById<TextView>(
-                            resources.getIdentifier(
-
-                                "TecharticleTitleB${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-                        val imageView = cardView.findViewById<ImageView>(
-                            resources.getIdentifier(
-                                "TecharticleImageViewB${index + 1}", "id", requireContext().packageName
-                            )
-                        )
-
-                        titleTextView.text = article.title
-
-                        // Load the image using Picasso
-                        Picasso.get()
-                            .load(article.imageUrl)
-                            .fit()
-                            .centerCrop()
-                            .into(imageView)
-
-                        cardView.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
+        }, 3000, 3000) // Delay 3 seconds, repeat every 3 seconds
     }
-
-
-
-    // Function to get all articles by category
-    fun getAllArticles(): Map<String, List<NewsArticle>> {
-        return newsArticlesMap
-    }
-
-    // Function to get articles for a specific category
-    fun getArticlesForCategory(category: String): List<NewsArticle>? {
-        return newsArticlesMap[category]
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view2)
@@ -55,10 +55,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle navigation_home
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_home)
             }
-            // Handle other menu items
-            R.id.nav_logout -> Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
+            R.id.nav_news_section -> {
+                // Handle settings navigation
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_notifications)
+            }
+            R.id.nav_share -> {
+                // Handle share navigation
+            }
+            R.id.nav_about -> {
+                // Handle about navigation
+            }
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -77,12 +88,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun PoliticsArticle2News(view: View) {
-        openactivity2()
-    }
-    fun openactivity2(){
-        val intent = Intent(this, FullArticle::class.java)
-        startActivity(intent)
-    }
+
 
 }

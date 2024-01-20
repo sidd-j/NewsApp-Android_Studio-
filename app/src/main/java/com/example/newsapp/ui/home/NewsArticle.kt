@@ -8,5 +8,6 @@ data class NewsArticle(
     val imageUrl: String,
     val abstract: String,
     val url: String,
-    val multimedia: List<Multimedia>
+    val multimedia: List<Multimedia>,
+    val hoursAgo: String
 )
