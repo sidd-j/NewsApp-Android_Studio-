@@ -8,15 +8,43 @@
         <item name="windowNoTitle">true</item>
 
         <!-- Other theme attributes -->
-        <item name="android:windowBackground">@color/purple_500</item>
+        <item name="android:windowBackground">@drawable/gradient_background</item>
         <item name="android:textColor">@color/white</item>
-        <item name="colorPrimary">@color/Primary_1</item>
+        <item name="colorPrimary">@color/Primary_2</item>
         <item name="colorPrimaryVariant">@color/Primary_2</item>
         <item name="colorOnPrimary">@color/Primary_2</item>
         <item name="colorSecondary">@color/teal_blue</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="android:statusBarColor">@color/Primary_1</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:statusBarColor">@color/Primary_2</item>
         <item name="colorAccent">@color/Blue</item>
+
+
     </style>
+
+    <attr name="themeColor" format="color"/>
+    <attr name="bgcolor" format="color"/>
+    <attr name="textcolor1" format="color"/>
+
+
+    <!-- Dark mode theme -->
+    <style name="BNAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Other theme attributes for dark mode -->
+        <item name="android:background">@color/black</item>
+        <item name="bgcolor">@color/black</item>
+        <item name="textcolor1">@color/white</item>
+        <item name="themeColor">@color/white</item>
+
+
+        <!-- Customize other attributes for dark mode -->
+    </style>
+
+
+
+
+
+
+
+
+
 </resources>

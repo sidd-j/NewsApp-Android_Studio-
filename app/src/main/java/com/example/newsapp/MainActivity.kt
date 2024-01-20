@@ -1,11 +1,15 @@
 package com.example.newsapp
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -28,16 +32,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val profileImageUri = Setting.profileImageUri
+        val profileImageView = binding.profile
+        if (profileImageUri != null) {
+
+            profileImageView.setImageURI(profileImageUri)
+        } else {
+            // Handle the case where the profile image URI is null
+            println("Image not found")
+        }
+
+        val toolbar: Toolbar = binding.topAppBar
+        setSupportActionBar(toolbar)
 
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view2)
         navigationView.setNavigationItemSelectedListener(this)
 
+
+        val profile = binding.profile
+        profile.setOnClickListener(){
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
 
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -63,9 +83,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_share -> {
                 // Handle share navigation
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_dashboard)
             }
             R.id.nav_about -> {
                 // Handle about navigation
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_settings)
             }
             R.id.nav_logout -> {
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
@@ -87,6 +109,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+
 
 
 

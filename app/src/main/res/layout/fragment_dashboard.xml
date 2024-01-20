@@ -6,9 +6,7 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     >
-
 
 
     <ScrollView
@@ -24,26 +22,30 @@
             tools:context=".ui.dashboard.DashboardFragment">
 
 
-
-
             <!-- Add ViewPager2 for the image slider -->
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainnews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:listitem="10"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_editor_absoluteY="000dp" />
 
             <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager">
+                app:layout_constraintTop_toBottomOf="@id/mainnews">
 
 
                 <LinearLayout
@@ -74,10 +76,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:textColor="#ffd60a"
-                        android:backgroundTint="#9b2226"
+                        android:backgroundTint="#A49EFF"
                         android:onClick="ploliticsbttn"
-                        android:text="See all" />
+                        android:text="See all"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -121,10 +123,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:textColor="#ffd60a"
-                        android:backgroundTint="#9b2226"
+                        android:backgroundTint="#A49EFF"
                         android:onClick="ploliticsbttn"
-                        android:text="See all" />
+                        android:text="See all"
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 
@@ -176,10 +178,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:textColor="#ffd60a"
-                        android:backgroundTint="#9b2226"
+                        android:backgroundTint="#A49EFF"
                         android:onClick="ploliticsbttn"
-                        android:text="See all" />
+                        android:text="See all"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
 

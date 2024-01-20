@@ -1,17 +1,20 @@
 package com.example.newsapp.ui.notifications
 
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.example.newsapp.FullActivity
 import com.example.newsapp.R
 import com.squareup.picasso.Picasso
 
-class AdapterHorizontal(private val articles: MutableList<NewsArticle>) : RecyclerView.Adapter<AdapterHorizontal.ViewHolder>() {
+class AdapterHorizontal(private val context: Context, private val articles: MutableList<NewsArticle>) : RecyclerView.Adapter<AdapterHorizontal.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_horizontal, parent, false)
         return ViewHolder(view)
@@ -34,8 +37,13 @@ class AdapterHorizontal(private val articles: MutableList<NewsArticle>) : Recycl
 
         // Set click listener to open article URL in browser
         holder.itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
-            holder.itemView.context.startActivity(intent)
+            val intent = Intent(context, FullActivity::class.java).apply {
+                putExtra("articleTitle", article.title)
+                putExtra("articleContent", article.abstract)
+                putExtra("articleImageUrl",article.imageUrl)
+                putExtra("FullArticle",article.url)
+            }
+            context.startActivity(intent)
         }
     }
 

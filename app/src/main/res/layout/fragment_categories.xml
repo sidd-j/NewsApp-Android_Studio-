@@ -9,41 +9,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     tools:context=".ui.notifications.NotificationsFragment">
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/black"
-        android:text="Latest Technology News"
-        android:textColor="@color/font_color"
-        android:textSize="@dimen/font_Title"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/horizontalRecyclerView"
+    <LinearLayout
+        android:id="@+id/linlatout"
         android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:layout_marginBottom="10dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:layout_height="wrap_content"
+        android:background="?attr/bgcolor"
+        android:orientation="vertical"
+        android:theme="@style/BNAppTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="8dp"
+            android:background="#00000000"
+            android:text="Latest Technology News"
+            android:textColor="?attr/textcolor1"
+            android:textSize="@dimen/font_Title"
+            style="@style/BNAppTheme"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/horizontalRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:background="?attr/bgcolor"
+            style="@style/BNAppTheme"
+            android:paddingEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -54,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView">
+        app:layout_constraintTop_toBottomOf="@+id/linlatout">
 
         <LinearLayout
             android:layout_width="match_parent"

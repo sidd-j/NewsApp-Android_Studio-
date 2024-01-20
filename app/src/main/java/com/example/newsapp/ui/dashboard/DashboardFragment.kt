@@ -13,6 +13,8 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newsapp.Politics
 import com.example.newsapp.R
@@ -37,11 +39,13 @@ class DashboardFragment : Fragment() {
     private val politicsArticlesList = mutableListOf<NewsArticle>()
     private val scienceArticlesList = mutableListOf<NewsArticle>()
     private val sportsArticlesList = mutableListOf<NewsArticle>()
+    private val mainArticlesList = mutableListOf<NewsArticle>()
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var politicsAdapter: AdapterHorizontal
     private lateinit var scienceAdapter: AdapterHorizontal
     private lateinit var sportsAdapter: AdapterHorizontal
-    private lateinit var viewPager: ViewPager2
+    private lateinit var mainsectionAdapter:AdapterSlider
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var timer: Timer
 
 
@@ -57,17 +61,40 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        politicsAdapter = AdapterHorizontal(politicsArticlesList)
+        startAutoScroll()
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            // Trigger refresh action when user swipes down
+            refreshNews()
+
+
+        }
+
+
+
+
+        politicsAdapter = AdapterHorizontal(requireContext(),politicsArticlesList)
         binding.PoliticsRecylerView.adapter = politicsAdapter
         binding.PoliticsRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        scienceAdapter = AdapterHorizontal(scienceArticlesList)
+        scienceAdapter = AdapterHorizontal(requireContext(),scienceArticlesList)
         binding.ScienceRecylerView.adapter = scienceAdapter
         binding.ScienceRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        sportsAdapter = AdapterHorizontal(sportsArticlesList)
+
+
+        sportsAdapter = AdapterHorizontal(requireContext(),sportsArticlesList)
         binding.WorldRecylerView.adapter = sportsAdapter
         binding.WorldRecylerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+
+        mainsectionAdapter = AdapterSlider(requireContext(),mainArticlesList)
+        binding.mainnews.adapter = mainsectionAdapter
+        binding.mainnews.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val reView = view.findViewById<RecyclerView>(R.id.mainnews)
+        val nextItem = (reView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 1
+        reView.smoothScrollToPosition(nextItem)
 
 
         val sciencebttn = view.findViewById<Button>(R.id.sciencebttn)
@@ -91,17 +118,7 @@ class DashboardFragment : Fragment() {
             startActivity(intent)
         }
 
-        viewPager = view.findViewById(R.id.viewPager)
 
-        // Replace with your actual image resources
-        val images = listOf(R.drawable.worldmap, R.drawable.sports_categories, R.drawable.politic)
-
-        // Set up your ViewPager2 adapter here
-        val adapter = ImageSliderAdapter(images)
-        viewPager.adapter = adapter
-
-        // Start the timer to auto-scroll the ViewPager2
-        startTimer()
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -109,6 +126,9 @@ class DashboardFragment : Fragment() {
                 val apiKey = "rZcS3xlAHpqx9P85OIrT9vvh08YLFQGb"
                 val politicsResponse = fetchNewsArticles(apiKey, "politics")
                 handleNewsApiResponse(politicsResponse, politicsArticlesList)
+
+                val mainResponse = fetchNewsArticles(apiKey, "home")
+                handleNewsApiResponse(mainResponse, mainArticlesList)
 
                 val scienceResponse = fetchNewsArticles(apiKey, "science")
                 handleNewsApiResponse(scienceResponse, scienceArticlesList)
@@ -123,6 +143,44 @@ class DashboardFragment : Fragment() {
             }
         }
     }
+
+    private fun refreshNews() {
+        loadNews()
+    }
+
+    private fun loadNews() {
+            // Show the refresh indicator
+            swipeRefreshLayout.isRefreshing = true
+
+            // Fetch news articles using coroutines
+            viewLifecycleOwner.lifecycleScope.launch {
+                try {
+                    // Fetch news articles
+                    val apiKey = "rZcS3xlAHpqx9P85OIrT9vvh08YLFQGb"
+                    val politicsResponse = fetchNewsArticles(apiKey, "politics")
+                    handleNewsApiResponse(politicsResponse, politicsArticlesList)
+
+                    val scienceResponse = fetchNewsArticles(apiKey, "science")
+                    handleNewsApiResponse(scienceResponse, scienceArticlesList)
+
+                    val mainResponce = fetchNewsArticles(apiKey, "home")
+                    handleNewsApiResponse(mainResponce, mainArticlesList)
+
+                    val sportsResponse = fetchNewsArticles(apiKey, "sports")
+                    handleNewsApiResponse(sportsResponse, sportsArticlesList)
+
+                    // Delay for demonstration purposes (replace with your actual data loading logic)
+                    delay(2000)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    // Handle the exception (e.g., show an error message)
+                } finally {
+                    // Hide the refresh indicator after data loading is complete
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            }
+        }
+
 
     private suspend fun fetchNewsArticles(apiKey: String, category: String): String {
         val url = URL("https://api.nytimes.com/svc/topstories/v2/$category.json?api-key=$apiKey")
@@ -174,16 +232,26 @@ class DashboardFragment : Fragment() {
             politicsAdapter.notifyDataSetChanged()
             scienceAdapter.notifyDataSetChanged()
             sportsAdapter.notifyDataSetChanged()
+            mainsectionAdapter.notifyDataSetChanged()
+
         }
     }
-    private fun startTimer() {
+    private fun startAutoScroll() {
         val handler = Handler(Looper.getMainLooper())
         val update = Runnable {
-            if (viewPager.currentItem < 3 - 1) {
-                viewPager.currentItem += 1
+            val layoutManager = binding.mainnews.layoutManager as LinearLayoutManager
+            val maxScroll = layoutManager.itemCount
+            var currentPosition = layoutManager.findFirstVisibleItemPosition()
+
+            if (currentPosition == RecyclerView.NO_POSITION) {
+                currentPosition = 0
+            } else if (currentPosition < maxScroll - 1) {
+                currentPosition++
             } else {
-                viewPager.currentItem = 0
+                currentPosition = 0
             }
+
+            binding.mainnews.smoothScrollToPosition(currentPosition)
         }
 
         timer = Timer()
@@ -191,6 +259,11 @@ class DashboardFragment : Fragment() {
             override fun run() {
                 handler.post(update)
             }
-        }, 3000, 3000) // Delay 3 seconds, repeat every 3 seconds
+        }, 10000, 3000) // Delay 3 seconds, repeat every 3 seconds
     }
+
+    private fun stopAutoScroll() {
+        timer.cancel()
+    }
+
 }
